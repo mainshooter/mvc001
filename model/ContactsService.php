@@ -59,6 +59,22 @@
       $result = $db->createData($sql, $input);
       return($result);
     }
+
+    public function updateContact($formResult) {
+      $db = new db();
+
+      $sql = "UPDATE contact SET Name=:contact_name, Phone=:contact_phone, Email=:contact_email, Adress=:contact_adress WHERE contactID=:contactID";
+      $input = array(
+        "contact_name" => $formResult['Name'],
+        "contact_phone" => $formResult['Phone'],
+        "contact_email" => $formResult['Email'],
+        "contact_adress" => $formResult['Adress'],
+        "contactID" => $formResult['contactID']
+      );
+
+      $result = $db->updateData($sql, $input);
+      return($result);
+    }
   }
 
 ?>

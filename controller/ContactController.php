@@ -39,6 +39,12 @@
         else if ($op == 'save') {
           $this->createData();
         }
+        else if ($op == 'updateForm') {
+          $this->updateForm();
+        }
+        else if ($op == 'update') {
+          $this->updateData();
+        }
         else if ($op == 'delete') {
           $this->deleteData();
         }
@@ -63,7 +69,7 @@
       // Otherwise it will be NULL
 
       $tableContent = $this->contactsService->readContacts($orderby);
-      
+
       $table = new Table();
       $table = $table->createTable($tableContent);
       // Execute the readAllData
@@ -99,6 +105,23 @@
       $result = $this->contactsService->createContact($_REQUEST);
 
       header("Location: index.php");
+    }
+
+    public function updateForm() {
+      $contactID = ISSET($_GET['contactID'])?$_GET['contactID']:NULL;
+
+      $contactDetail = $this->contactsService->readContact($contactID);
+      $table = new table();
+      $table = $table->updateTable($contactDetail);
+      include 'view/updateForm.php';
+    }
+
+    public function updateData() {
+      $formResult = ISSET($_REQUEST)?$_REQUEST:NULL;
+
+      $contactUpdate = $this->contactsService->updateContact($_REQUEST);
+      $this->readAllData();
+      echo $contactUpdate;
     }
   }
 
