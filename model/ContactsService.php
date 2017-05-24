@@ -6,6 +6,7 @@
 
 
     public function readContacts($orderBy) {
+      // Expects a string as order by
       // Reads all the contacts
       $db = new db();
 
@@ -14,11 +15,14 @@
         "orderColName" => $orderBy
       );
       $contacts = $db->readData($sql, $input);
+      // The result form the database
 
       $table = new Table();
       $table = $table->createTable($contacts);
+      // Creates a table from the result from the database
 
       return($table);
+      // Returns the created table as HTML
     }
 
     public function readContact($contactID) {

@@ -57,8 +57,14 @@
 
     public function readAllData() {
       $orderby = ISSET($_GET['orderby'])?$_GET['orderby']:NULL;
+      // Checks if the $_GET['orderby'] has been set
+      // If it is we will set it with the get variable
+      // Otherwise it will be NULL
 
       $table = $this->contactsService->readContacts($orderby);
+      // Execute the readAllData
+      // It returns a table
+
       include 'view/contacts.php';
       // There we gonne display it
     }
