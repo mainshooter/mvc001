@@ -1,6 +1,7 @@
 <?php
 
   require_once 'model/ContactsService.php';
+  require_once 'model/table.php';
 
   class ContactsController {
 
@@ -61,7 +62,10 @@
       // If it is we will set it with the get variable
       // Otherwise it will be NULL
 
-      $table = $this->contactsService->readContacts($orderby);
+      $tableContent = $this->contactsService->readContacts($orderby);
+      
+      $table = new Table();
+      $table = $table->createTable($tableContent);
       // Execute the readAllData
       // It returns a table
 
@@ -73,7 +77,10 @@
       $contactID = ISSET($_GET['contactID'])?$_GET['contactID']:NULL;
       // If there is a contact ID we set it otherwise it will be 0
 
-      $table = $this->contactsService->readContact($contactID);
+      $tableContent = $this->contactsService->readContact($contactID);
+      $table = new Table();
+      $table = $table->createTable($tableContent);
+
       include 'view/contact.php';
     }
 

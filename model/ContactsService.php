@@ -17,11 +17,7 @@
       $contacts = $db->readData($sql, $input);
       // The result form the database
 
-      $table = new Table();
-      $table = $table->createTable($contacts);
-      // Creates a table from the result from the database
-
-      return($table);
+      return($contacts);
       // Returns the created table as HTML
     }
 
@@ -35,10 +31,7 @@
       );
       $contactDetails = $db->readData($sql, $input);
 
-      $table = new Table();
-      $table = $table->createTable($contactDetails);
-
-      return($table);
+      return($contactDetails);
     }
 
     public function deleteContact($contactID) {
