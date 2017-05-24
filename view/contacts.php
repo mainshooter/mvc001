@@ -1,6 +1,7 @@
 <?php
 include 'header.php';
-echo $table
+echo $table;
 
   // Displays the table
+include 'footer.php';
 ?>
