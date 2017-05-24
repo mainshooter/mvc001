@@ -28,17 +28,17 @@
 
       try {
         // We try this
-        if (!$op || $op === 'list') {
+        if (!$op || $op == 'list') {
           // If there is list in the request or there is nothing in the op variable
           $this->readAllData();
         }
-        else if ($op === 'new') {
+        else if ($op == 'new') {
           $this->createData();
         }
-        else if ($op === 'delete') {
+        else if ($op == 'delete') {
           $this->deleteData();
         }
-        else if ($op === 'show') {
+        else if ($op == 'show') {
           $this->readData();
         }
         else {
@@ -55,9 +55,24 @@
     public function readAllData() {
       $orderby = ISSET($_GET['orderby'])?$_GET['orderby']:NULL;
 
-      $contacts = $this->contactsService->readContacts($orderby);
+      $table = $this->contactsService->readContacts($orderby);
       include 'view/contacts.php';
       // There we gonne display it
+    }
+
+    public function readData() {
+      $contactID = ISSET($_GET['contactID'])?$_GET['contactID']:NULL;
+      // If there is a contact ID we set it otherwise it will be 0
+
+      $table = $this->contactsService->readContact($contactID);
+      include 'view/contact.php';
+    }
+
+    public function deleteData() {
+      $contactID = ISSET($_GET['contactID'])?$_GET['contactID']:NULL;
+
+      $result = $this->contactsService->deleteContact($contactID);
+      include 'view/deleteResult.php';
     }
   }
 

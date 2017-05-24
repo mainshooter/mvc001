@@ -1,6 +1,6 @@
 <?php
-  require_once 'model/table.php';
-  $table = new table();
-  echo $table->createTable($contacts);
+
+echo $table
+
   // Displays the table
 ?>
