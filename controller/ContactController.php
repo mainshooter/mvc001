@@ -20,7 +20,7 @@
     }
 
     public function handleRequest() {
-      $op = ISSET($_GET['op'])?$_GET['op']:NULL;
+      $op = ISSET($_REQUEST['op'])?$_REQUEST['op']:NULL;
       // Its called: Ternary Operators
       // if there is a op request variable
       // We set the variable with the request
@@ -32,7 +32,10 @@
           // If there is list in the request or there is nothing in the op variable
           $this->readAllData();
         }
-        else if ($op == 'new') {
+        else if ($op == 'newContact') {
+          $this->newContactForm();
+        }
+        else if ($op == 'save') {
           $this->createData();
         }
         else if ($op == 'delete') {
@@ -73,6 +76,16 @@
 
       $result = $this->contactsService->deleteContact($contactID);
       include 'view/deleteResult.php';
+    }
+
+    public function newContactForm() {
+      include 'view/createContactForm.html';
+    }
+
+    public function createData() {
+      $result = $this->contactsService->createContact($_REQUEST);
+
+      header("Location: index.php");
     }
   }
 

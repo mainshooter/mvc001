@@ -48,6 +48,20 @@
       $result = $db->deleteData($sql, $input);
       return($result);
     }
+
+    public function createContact($formResult) {
+      $db = new db();
+
+      $sql = "INSERT INTO contact (Name, Phone, Email, Adress) VALUES (:contact_name, :contact_phone, :contact_email, :contact_adress)";
+      $input = array(
+        "contact_name" => $formResult['contact_naam'],
+        "contact_phone" => $formResult['contact_phone'],
+        "contact_email" => $formResult['contact_mail'],
+        "contact_adress" => $formResult['contact_place']
+      );
+      $result = $db->createData($sql, $input);
+      return($result);
+    }
   }
 
 ?>
