@@ -5,8 +5,17 @@
   class ContactsController {
 
     private var $contactsService = NULL;
+    // Private means it can only be used in this class
+    // To prefent that someone acces it outside the class
+
+    // Protected means that a chiled can acces the parent private variable or method
+    // But from outside a class it can't be used
+
+    // Public means every class can use it
+
 
     public function __construct() {
+      // Everyone can use public
       $this->contactsService = new ContactsService();
     }
 
