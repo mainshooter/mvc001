@@ -79,13 +79,10 @@
       $HtmlGenerator = new HtmlGenerator();
       $table = new Table();
 
-      $tableContent = $this->contactsService->readContacts($orderby);
+      $contacts = $this->contactsService->readContacts($orderby);
       $headers = $this->contactsService->getColmNames();
 
-      $contacts = $this->contactsService->readContacts($orderby);
-
-
-      $table = $table->createTable($headers, $tableContent);
+      $table = $table->createTable($headers, $contacts);
 
       $selectBox = $HtmlGenerator->prepareGenerateSelectBox('Name', '');
       // Execute the readAllData
