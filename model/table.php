@@ -2,8 +2,16 @@
   class table {
     // Creates a table
 
-    public function createTable($array) {
+    public function createTable($header, $array) {
       $table = '<table>';
+      foreach ($header as $key) {
+        $table .= '<tr>';
+        foreach ($key as $row => $value) {
+          $table .= '<th><a href="?orderby=' . $row . '">' . $row . '</th>';
+        }
+        $table .= '</tr>';
+      }
+
       foreach ($array as $key) {
         $table .= '<tr>';
         foreach ($key as $row => $value) {
