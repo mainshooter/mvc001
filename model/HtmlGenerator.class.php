@@ -3,20 +3,21 @@
 
   class HtmlGenerator {
 
-    public function prepareGenerateSelectBox($type, $highlateContactID) {
+    /**
+     * Prepares for the generate of the HTML selectBOS
+     * @param  [string] $type [The colom we want to display]
+     * @param  [INT] $selectedContactID [The selected contact]
+     * @return [string HTML] $selectBox [generated selectBOX]
+     */
+    public function prepareGenerateSelectBox($type, $selectedContactID) {
       $ContactsService = new ContactsService();
       $contacts = $ContactsService->readContacts('');
 
-      if ($type == 'Email') {
-        $columNames = ['contactID', $type, $highlateContactID];
-        $JSevent = '';
-      }
-      else if ($type == "Name") {
-        $columNames = ['contactID', $type, $highlateContactID];
-        $JSevent = "onchange=contact.mailAdressSelect(this.value)";
-      }
+      $columNames = ['contactID', $type, $selectedContactID];
 
-      $selectBox = $this->createSelectBox($contacts, $columNames, $JSevent);
+        $class = 'class="inputAjax"';
+
+      $selectBox = $this->createSelectBox($contacts, $columNames, $class);
       return($selectBox);
     }
 
@@ -28,11 +29,11 @@
      * @param  [string] $JSevent  [A string with the event we want to use in AJAX]
      * @return [string] [With the HTML selectBox]
      */
-    public function createSelectBox($arr, $columNames, $JSevent) {
+    public function createSelectBox($arr, $columNames, $class) {
       $highlateID = ISSET($columNames[2])?$columNames[2]: NULL;
       $JSevent = ISSET($JSevent)?$JSevent: NULL;
 
-      $selectBox = "<select " . $JSevent . ">";
+      $selectBox = "<select " . $class . ">";
       foreach ($arr as $key => $value) {
         if ($value[$columNames[0]] == $highlateID) {
           $selectBox .= '<option value="' . $value[$columNames[0]] . '" selected>' . $value[$columNames[1]] . '</option>';
