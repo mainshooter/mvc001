@@ -34,6 +34,10 @@
           // If there is list in the request or there is nothing in the op variable
           $this->readAllData();
         }
+
+        else if ($op == 'emailSelectBox') {
+          $this->getSelectBoxForMail();
+        }
         else if ($op == 'newContact') {
           $this->newContactForm();
         }
@@ -63,6 +67,10 @@
       }
     }
 
+    public function showError($error) {
+      echo "<h1>" . $error . "</h1>";
+    }
+
     public function readAllData() {
       $orderby = ISSET($_GET['orderby'])?$_GET['orderby']:NULL;
       // Checks if the $_GET['orderby'] has been set
@@ -85,6 +93,17 @@
 
       include 'view/contacts.php';
       // There we gonne display it
+    }
+
+    public function getSelectBoxForMail() {
+      $highlateContactID = ISSET($_GET['highlateContactID'])?$_GET['highlateContactID']: NULL;
+
+      $html = new html();
+      $contactEmailWithID = $this->contactsService->getAllMailAdressWithID();
+      $columNames = ['contactID', 'Email'];
+      $selectBox = $html->createSelectedSelectbox($contactEmailWithID, $columNames, $highlateContactID);
+
+      echo $selectBox;
     }
 
 

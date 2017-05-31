@@ -35,6 +35,19 @@
       return($db->readData($sql, $input));
     }
 
+    /**
+     * Get all email adress with the ID of every contact
+     * @return [assoc array] [The result from the db]
+     */
+    public function getAllMailAdressWithID() {
+      $db = new db();
+
+      $sql = "SELECT contactID, Email FROM contact";
+      $input = array();
+
+      return($db->readData($sql, $input));
+    }
+
     public function getColmNames() {
       $db = new db();
 

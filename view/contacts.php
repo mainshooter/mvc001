@@ -7,6 +7,8 @@ include 'header.php';
   // We can echo it
 
   echo $selectBox;
-
+?>
+<div id="ajaxResult"></div>
+<?php
 include 'footer.php';
 ?>
