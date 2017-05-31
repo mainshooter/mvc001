@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="style/grid.css" type="text/css">
     <script src="js/main.js"></script>
   </head>
-<body>
+<body onload="webpage.listeners();">
 
 <div class="header">
   <h1>Chania</h1>
