@@ -68,15 +68,17 @@
       // Checks if the $_GET['orderby'] has been set
       // If it is we will set it with the get variable
       // Otherwise it will be NULL
+      $html = new html();
+      $table = new Table();
 
       $tableContent = $this->contactsService->readContacts($orderby);
       $headers = $this->contactsService->getColmNames();
       $array = ['contactID','Name'];
 
       $contactNamesWithID = $this->contactsService->getAllNamesWithID();
-      $selectBox = $this->createSelectBox($contactNamesWithID, $array);
+      $selectBox = $html->createSelectBox($contactNamesWithID, $array);
 
-      $table = new Table();
+
       $table = $table->createTable($headers, $tableContent);
       // Execute the readAllData
       // It returns a table
@@ -85,15 +87,6 @@
       // There we gonne display it
     }
 
-    public function createSelectBox($contacts, $columNames) {
-      $html = new html();
-      $selectBox = "<select onchange='contact.read(this.value)'>";
-      foreach ($contacts as $key => $value) {
-        $selectBox .= '<option value="' . $value[$columNames[0]] . '">' . $value[$columNames[1]] . '</option>';
-      }
-      $selectBox .= "</select>";
-      echo $selectBox;
-    }
 
     public function readData() {
       $contactID = ISSET($_GET['contactID'])?$_GET['contactID']:NULL;
