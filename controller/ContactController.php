@@ -82,9 +82,10 @@
       $tableContent = $this->contactsService->readContacts($orderby);
       $headers = $this->contactsService->getColmNames();
       $array = ['contactID','Name'];
+      $eventHandler = "onchange=contact.mailAdressSelect(this.value)";
 
-      $contactNamesWithID = $this->contactsService->getAllNamesWithID();
-      $selectBox = $html->createSelectBox($contactNamesWithID, $array);
+      $contacts = $this->contactsService->readContacts($orderby);
+      $selectBox = $html->createSelectBox($contacts, $array, $eventHandler);
 
 
       $table = $table->createTable($headers, $tableContent);
@@ -97,13 +98,17 @@
 
     public function getSelectBoxForMail() {
       $highlateContactID = ISSET($_GET['highlateContactID'])?$_GET['highlateContactID']: NULL;
+      // $columName1 = ISSET();
 
       $html = new html();
-      $contactEmailWithID = $this->contactsService->getAllMailAdressWithID();
-      $columNames = ['contactID', 'Email'];
-      $selectBox = $html->createSelectedSelectbox($contactEmailWithID, $columNames, $highlateContactID);
+      $contacts = $this->contactsService->readContacts('');
 
-      echo $selectBox;
+      $columNames = ['contactID', 'Email', $highlateContactID];
+
+      $selectBox = $html->createSelectBox($contacts, $columNames, '');
+
+      $ajaxResult = $selectBox;
+      include 'view/ajaxResult.php';
     }
 
 
