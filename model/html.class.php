@@ -9,11 +9,12 @@
      * @param  [array] $columNames [All the columNames includeing the highlatedID]
      * @return [string] [With the HTML selectBox]
      */
-    public function createSelectBox($contacts, $columNames) {
+    public function createSelectBox($arr, $columNames, $JSevent) {
       $highlateID = ISSET($columNames[2])?$columNames[2]: NULL;
+      $JSevent = ISSET($JSevent)?$JSevent: NULL;
 
-      $selectBox = "<select onchange='contact.mailAdressSelect(this.value)'>";
-      foreach ($contacts as $key => $value) {
+      $selectBox = "<select " . $JSevent . ">";
+      foreach ($arr as $key => $value) {
         if ($value[$columNames[0]] == $highlateID) {
           $selectBox .= '<option value="' . $value[$columNames[0]] . '" selected>' . $value[$columNames[1]] . '</option>';
         }
