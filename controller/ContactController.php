@@ -2,7 +2,7 @@
 
   require_once 'model/ContactsService.php';
   require_once 'model/table.php';
-  require_once 'model/html.class.php';
+  require_once 'model/HtmlGenerator.class.php';
 
   class ContactsController {
 
@@ -76,19 +76,18 @@
       // Checks if the $_GET['orderby'] has been set
       // If it is we will set it with the get variable
       // Otherwise it will be NULL
-      $html = new html();
+      $HtmlGenerator = new HtmlGenerator();
       $table = new Table();
 
       $tableContent = $this->contactsService->readContacts($orderby);
       $headers = $this->contactsService->getColmNames();
-      $array = ['contactID','Name'];
-      $eventHandler = "onchange=contact.mailAdressSelect(this.value)";
 
       $contacts = $this->contactsService->readContacts($orderby);
-      $selectBox = $html->createSelectBox($contacts, $array, $eventHandler);
 
 
       $table = $table->createTable($headers, $tableContent);
+
+      $selectBox = $HtmlGenerator->prepareGenerateSelectBox('Name', '');
       // Execute the readAllData
       // It returns a table
 
@@ -98,14 +97,9 @@
 
     public function getSelectBoxForMail() {
       $highlateContactID = ISSET($_GET['highlateContactID'])?$_GET['highlateContactID']: NULL;
-      // $columName1 = ISSET();
 
-      $html = new html();
-      $contacts = $this->contactsService->readContacts('');
-
-      $columNames = ['contactID', 'Email', $highlateContactID];
-
-      $selectBox = $html->createSelectBox($contacts, $columNames, '');
+      $HtmlGenerator = new HtmlGenerator();
+      $selectBox = $HtmlGenerator->prepareGenerateSelectBox('Email', $highlateContactID);
 
       $ajaxResult = $selectBox;
       include 'view/ajaxResult.php';
