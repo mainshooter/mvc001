@@ -2,6 +2,7 @@
 
   require_once 'model/ContactsService.php';
   require_once 'model/table.php';
+  require_once 'model/html.class.php';
 
   class ContactsController {
 
@@ -69,9 +70,14 @@
       // Otherwise it will be NULL
 
       $tableContent = $this->contactsService->readContacts($orderby);
+      $headers = $this->contactsService->getColmNames();
+      $array = ['contactID','Name'];
+
+      $contactNamesWithID = $this->contactsService->getAllNamesWithID();
+      $selectBox = $this->createSelectBox($contactNamesWithID, $array);
 
       $table = new Table();
-      $table = $table->createTable($tableContent);
+      $table = $table->createTable($headers, $tableContent);
       // Execute the readAllData
       // It returns a table
 
@@ -79,13 +85,27 @@
       // There we gonne display it
     }
 
+    public function createSelectBox($contacts, $columNames) {
+      $html = new html();
+      $selectBox = "<select onchange='contact.read(this.value)'>";
+      foreach ($contacts as $key => $value) {
+        $selectBox .= '<option value="' . $value[$columNames[0]] . '">' . $value[$columNames[1]] . '</option>';
+      }
+      $selectBox .= "</select>";
+      echo $selectBox;
+    }
+
     public function readData() {
       $contactID = ISSET($_GET['contactID'])?$_GET['contactID']:NULL;
       // If there is a contact ID we set it otherwise it will be 0
 
+      $header = $this->contactsService->getColmNames();
       $tableContent = $this->contactsService->readContact($contactID);
+
+
+
       $table = new Table();
-      $table = $table->createTable($tableContent);
+      $table = $table->createTable($header, $tableContent);
 
       include 'view/contact.php';
     }
