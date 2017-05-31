@@ -9,16 +9,41 @@
       // Expects a string as order by
       // Reads all the contacts
       $db = new db();
+      echo $orderBy;
 
-      $sql = "SELECT * FROM contact ORDER BY :orderColName";
+      $sql = "SELECT * FROM contact ORDER BY :orderColName DESC";
       $input = array(
         "orderColName" => $orderBy
       );
+
       $contacts = $db->readData($sql, $input);
       // The result form the database
-
       return($contacts);
       // Returns the created table as HTML
+    }
+
+    /**
+     * Get all names and the IDs of the contacts
+     * @return [array] [With the result from the DB]
+     */
+    public function getAllNamesWithID() {
+      $db = new db();
+
+      $sql = "SELECT contactID, Name FROM contact";
+      $input = array();
+
+      return($db->readData($sql, $input));
+    }
+
+    public function getColmNames() {
+      $db = new db();
+
+      $sql = "SELECT * FROM contact LIMIT 1";
+      $input = array();
+
+      $headers = $db->readData($sql, $input);
+
+      return($headers);
     }
 
     public function readContact($contactID) {
