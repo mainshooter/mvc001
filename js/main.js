@@ -18,6 +18,12 @@ var webpage;
   webpage = {
     show: function(result, id) {
       document.getElementById(id).innerHTML = result;
+    },
+    listeners: function() {
+      var ajaxArray = document.getElementsByClassName('inputAjax');
+      for (var i = 0; i < ajaxArray.length; i++) {
+        ajaxArray[i].addEventListener('change', function(){contact.mailAdressSelect(this.value)});
+      }
     }
   }
 })();
