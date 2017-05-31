@@ -73,6 +73,7 @@
         $query->execute($input);
 
         $row = $query->fetchAll(PDO::FETCH_ASSOC);
+        
         return($row);
       } catch (Exception $e) {
           return ("Couldn't read data: " . $e->getMessage());
