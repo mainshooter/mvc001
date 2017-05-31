@@ -6,5 +6,7 @@ include 'header.php';
   // We have acces to the table variable in that file because it has become one file
   // We can echo it
 
+  echo $selectBox;
+
 include 'footer.php';
 ?>
